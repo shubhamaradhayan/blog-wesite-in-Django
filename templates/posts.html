@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block body %}
+
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5 " style="margin-top:50px">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+
+                    {% for item in posts %}
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="/posts/{{item.id}}">
+                            <h2 class="post-title">{{item.title}}</h2>
+                            <h3 class="post-subtitle">{{item.subtitle}}</h3>
+                        </a>
+                        <p class="post-meta ">
+                            Posted 
+                            {% comment %} <a href="#!">Start Bootstrap</a> {% endcomment %}
+                            on {{item.date}}
+                        </p>
+                    </div>
+                  
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    {% endfor %}
+                    <!-- Pager-->
+
+                    <div class="d-flex justify-content-end mb-4"><nav aria-label="Page navigation example">
+                        <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if posts.has_previous %}
+<li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+
+{% endif %}
+                            {% for i in page %}
+    {% if posts.number == i %}
+    <li class="page-item"><strong class="page-link" style="background:gray">{{ i }}</strong></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+    {% endif %}
+{% endfor %}
+
+{% if posts.has_next %}
+<li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+    {% comment %} <a href="?page={{ posts.next_page_number }}">Next +1</a> {% endcomment %}
+{% endif %}
+
+                        </ul> 
+                      </nav></div>
+                    {% comment %} <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> {% endcomment %}
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+{% endblock body %}
